@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "adm_typology", schema = "public")
+@Table(name = "adm_typology", schema = "dbo")
 public class AdmTypology implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "typology_id")
     private Long typology_id;

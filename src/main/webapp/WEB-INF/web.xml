@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <data-source>
         <name>java:global/mp_core</name>
-        <class-name>org.postgresql.ds.PGSimpleDataSource</class-name>
+        <class-name>com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource</class-name>
         <server-name>${ENV=DATABASE_SERVER}</server-name>
         <!--        <port-number>5432</port-number>-->
         <database-name>${ENV=DATABASE_NAME}</database-name>
-        <url>jdbc:postgresql://${ENV=DATABASE_SERVER}:${ENV=DATABASE_PORT}/${ENV=DATABASE_NAME}</url>
+        <url>jdbc:sqlserver://${ENV=DATABASE_SERVER}:${ENV=DATABASE_PORT};database=${ENV=DATABASE_NAME}</url>
         <user>${ENV=DATABASE_USER}</user>
         <password>${ENV=DATABASE_PWD}</password>
     </data-source>

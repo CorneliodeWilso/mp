@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class AdmFiscalia implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE )
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @NotNull
     @Column(name = "fiscalia_id")
     private Long fiscalia_id;
