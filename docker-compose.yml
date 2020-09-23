@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  mp:
+    build: .
+    container_name: mp-core
+    restart: always
+    env_file:
+      - ./server-variables.env
+    ports:
+      - "8888:8080"
