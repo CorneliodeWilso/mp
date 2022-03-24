@@ -1,26 +1,51 @@
 package com.airhacks.model;
 
 
+import com.airhacks.dto.AdmFiscaliaDto;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 
+
+import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.ws.rs.DefaultValue;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "adm_fiscalia", schema = "public")
+@Table(name = "adm_fiscalia", schema = "dbo")
+@JsonbPropertyOrder({
+        "fiscaliaId", "name", "address_line", "country", "state","city","zone","phone","phone_2"
+})
+
+@SequenceGenerator(
+        name = "admTypologySequence",
+        sequenceName = "adm_typology_sequence",
+        initialValue =  1,
+        allocationSize = 1
+)
+
+@SqlResultSetMapping(
+        name = "admfiscaliadto",
+        classes =  @ConstructorResult(
+                targetClass = AdmFiscaliaDto.class,
+                columns = {
+                        @ColumnResult(name = "fiscalia_id",type = Long.class),
+                        @ColumnResult(name = "name",type = String.class)
+                }
+        )
+)
+
 public class AdmFiscalia implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admTypologySequence")
     @NotNull
     @Column(name = "fiscalia_id")
-    private Long fiscalia_id;
+    private Long fiscaliaId;
 
 
     @Column(name = "name")
@@ -68,15 +93,19 @@ public class AdmFiscalia implements Serializable {
     @DefaultValue("0")
     private Long phone_2;
 
-    @Column(name = "swdatecreated")
-    @NotNull
-    private LocalDateTime swdatecreated;
+
+
 
     public AdmFiscalia() {
     }
 
-    public AdmFiscalia(@NotNull Long fiscalia_id, @Size(max = 250) @NotNull String name, @Size(max = 250) @NotNull String address_line, @NotNull AdmTypology country, @NotNull AdmTypology state, @NotNull AdmTypology city, @NotNull AdmTypology zone, @NotNull Long phone, @NotNull Long phone1, @NotNull LocalDateTime swdatecreated) {
-        this.fiscalia_id = fiscalia_id;
+    public AdmFiscalia(Long fiscaliaId, String name) {
+        this.fiscaliaId = fiscaliaId;
+        this.name = name;
+    }
+
+    public AdmFiscalia(@NotNull Long fiscaliaId, @Size(max = 250) @NotNull String name, @Size(max = 250) @NotNull String address_line, @NotNull AdmTypology country, @NotNull AdmTypology state, @NotNull AdmTypology city, @NotNull AdmTypology zone, @NotNull Long phone, @NotNull Long phone_2) {
+        this.fiscaliaId = fiscaliaId;
         this.name = name;
         this.address_line = address_line;
         this.country = country;
@@ -84,16 +113,15 @@ public class AdmFiscalia implements Serializable {
         this.city = city;
         this.zone = zone;
         this.phone = phone;
-        this.phone = phone1;
-        this.swdatecreated = swdatecreated;
+        this.phone_2 = phone_2;
     }
 
-    public Long getFiscalia_id() {
-        return fiscalia_id;
+    public Long getFiscaliaId() {
+        return fiscaliaId;
     }
 
-    public void setFiscalia_id(Long fiscalia_id) {
-        this.fiscalia_id = fiscalia_id;
+    public void setFiscaliaId(Long fiscaliaId) {
+        this.fiscaliaId = fiscaliaId;
     }
 
     public String getName() {
@@ -152,18 +180,20 @@ public class AdmFiscalia implements Serializable {
         this.phone = phone;
     }
 
-    public LocalDateTime getSwdatecreated() {
-        return swdatecreated;
+    public Long getPhone_2() {
+        return phone_2;
     }
 
-    public void setSwdatecreated(LocalDateTime swdatecreated) {
-        this.swdatecreated = swdatecreated;
+    public void setPhone_2(Long phone_2) {
+        this.phone_2 = phone_2;
     }
+
+
 
     @Override
     public String toString() {
         return "AdmFiscalia{" +
-                "fiscalia_id=" + fiscalia_id +
+                "fiscaliaId=" + fiscaliaId +
                 ", name='" + name + '\'' +
                 ", address_line='" + address_line + '\'' +
                 ", country=" + country +
@@ -171,8 +201,7 @@ public class AdmFiscalia implements Serializable {
                 ", city=" + city +
                 ", zone=" + zone +
                 ", phone=" + phone +
-                ", phone=" + phone +
-                ", swdatecreated=" + swdatecreated +
+                ", phone_2=" + phone_2 +
                 '}';
     }
 }

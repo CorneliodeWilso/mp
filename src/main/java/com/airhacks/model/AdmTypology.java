@@ -1,5 +1,7 @@
 package com.airhacks.model;
 
+
+import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,6 +11,10 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "adm_typology", schema = "dbo")
+@JsonbPropertyOrder({
+        "typology_id","description","parent"
+})
+
 public class AdmTypology implements Serializable {
 
     @Id

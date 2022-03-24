@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<!--    <data-source>-->
+<!--        <name>java:global/mp_core</name>-->
+<!--        <class-name>com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource</class-name>-->
+<!--        <server-name>${ENV=DATABASE_SERVER}</server-name>-->
+<!--        &lt;!&ndash;        <port-number>5432</port-number>&ndash;&gt;-->
+<!--        <database-name>${ENV=DATABASE_NAME}</database-name>-->
+<!--        <url>jdbc:sqlserver://${ENV=DATABASE_SERVER}:${ENV=DATABASE_PORT};database=${ENV=DATABASE_NAME}</url>-->
+<!--        <user>${ENV=DATABASE_USER}</user>-->
+<!--        <password>${ENV=DATABASE_PWD}</password>-->
+<!--    </data-source>-->
+
     <data-source>
         <name>java:global/mp_core</name>
-        <class-name>com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource</class-name>
+        <class-name>org.postgresql.ds.PGSimpleDataSource</class-name>
         <server-name>${ENV=DATABASE_SERVER}</server-name>
-        <!--        <port-number>5432</port-number>-->
+        <port-number>5432</port-number>
         <database-name>${ENV=DATABASE_NAME}</database-name>
-        <url>jdbc:sqlserver://${ENV=DATABASE_SERVER}:${ENV=DATABASE_PORT};database=${ENV=DATABASE_NAME}</url>
+        <url>jdbc:postgresql://${ENV=DATABASE_SERVER}:${ENV=DATABASE_PORT};database=${ENV=DATABASE_NAME}</url>
         <user>${ENV=DATABASE_USER}</user>
         <password>${ENV=DATABASE_PWD}</password>
     </data-source>
